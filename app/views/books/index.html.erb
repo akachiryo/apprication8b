@@ -1,0 +1,45 @@
+<div class='container px-5 px-sm-0'>
+  <%= render 'layouts/errors', obj: @book %>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h2>User info</h2>
+      <%= render 'users/info', user: current_user %>
+      <h2 class="mt-3">New book</h2>
+      <%= render 'form', book: @book %>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <h2>Books</h2>
+      <%= render 'index', books: @books%>
+      <%= render "count", today_books_count: @today_books_count,  one_books_count:  @one_books_count,two_books_count: @two_books_count, three_books_count: @three_books_count, four_books_count: @four_books_count, five_books_count: @five_books_count, six_books_count: @six_books_count  %>
+      <h4>7日間の投稿数の比較</h4>
+      <canvas id="sample1"></canvas>
+      
+      <script>
+      (function(){
+          var ctx = document.getElementById("sample1");
+          var data = {
+              labels: ["6日前", "5日前", "4日前", "3日前", "2日前", "1日前", "今日"],
+              datasets: [{
+                  label: '投稿した本の数',
+                  data: <%= @cumulative %>, 
+                  borderColor: 'rgba(0, 0, 255, 1)', 
+              }]
+          };
+          
+          var options = {};
+          var ex_chart = new Chart(ctx, {
+              type: 'line', 
+              data: data, 
+              options: options
+          });
+      }());
+      </script>
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
